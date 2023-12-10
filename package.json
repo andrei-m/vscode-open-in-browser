@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "open-in-web-scm.helloWorld",
-        "title": "Hello World"
+        "command": "open-in-web-scm.openInWeb",
+        "title": "Open in Web SCM"
       }
     ]
   },
@@ -37,5 +37,8 @@
     "@vscode/test-electron": "^2.3.8",
     "eslint": "^8.54.0",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "simple-git": "^3.21.0"
   }
 }
