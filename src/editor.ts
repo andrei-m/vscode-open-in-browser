@@ -23,13 +23,15 @@ export function getEditorInfo(): MaybeSelection {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
         const filePath = editor.document.uri.fsPath;
+        const relativeFilePath = vscode.workspace.asRelativePath(filePath);
+
         const start = editor.selection.start.line;
         const end = editor.selection.end.line;
         if (start === end) {
             const lineNumber = editor.selection.active.line;
-            return new Selection(filePath, lineNumber, lineNumber);
+            return new Selection(relativeFilePath, lineNumber, lineNumber);
         } else {
-            return new Selection(filePath, start, end);
+            return new Selection(relativeFilePath, start, end);
         }
     }
     return null;
