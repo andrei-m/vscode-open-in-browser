@@ -1,11 +1,5 @@
 import * as vscode from 'vscode';
 
-/*
-Open in stash examples:
-https://$host/projects/$project/repos/$repo/browse/$filePath?at=$commit#$firstLine
-https://$host/projects/$project/repos/$repo/browse/$filePath?at=$commit#$firstLine-$lastLine
-*/
-
 export class Selection {
     filePath: string
     firstLine: number

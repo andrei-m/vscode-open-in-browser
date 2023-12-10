@@ -1,13 +1,16 @@
 import * as vscode from 'vscode';
 import * as editor from './editor';
 import * as git from './git';
+import { open } from './open';
 
 export function activate(context: vscode.ExtensionContext) {
 	const disposable = vscode.commands.registerCommand('open-in-web-scm.openInWeb', () => {
 		const editorInfo = editor.getEditorInfo();
 		if (editorInfo) {
 			git.getGitInfo().then(simpleGitInfo => {
-				vscode.window.showInformationMessage(`${simpleGitInfo?.originUri}@${simpleGitInfo?.commitHash}`);
+				if (simpleGitInfo) {
+					open(simpleGitInfo, editorInfo);
+				}
 			});
 		}
 	});
