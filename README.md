@@ -47,6 +47,18 @@ Fixed issue #.
 
 Added features X, Y, and Z.
 
+## Development
+
+Compile before debugging. Debug (F5) while editing `extension.ts` to spawn a VSCode debug instance.
+```
+$ npm run compile
+```
+
+Tests run within a VSCode execution environment.
+```
+$ npm run test
+```
+
 ---
 
 ## Following extension guidelines
