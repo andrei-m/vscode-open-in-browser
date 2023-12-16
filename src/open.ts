@@ -23,6 +23,9 @@ export function gitUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Se
     if (host === 'github.com') {
         return githubUrlToWebUrl(url, commitHash, selection);
     }
+    if (host === 'gitlab.com') {
+        return gitlabUrlToWebUrl(url, commitHash, selection);
+    }
     const fragment = getLineNumberFragment('', selection);
 
     const path = url.pathname;
@@ -40,6 +43,12 @@ function githubUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Select
     const trimmedPath = url.pathname.replace(/.git$/, '').replace(/^\//, '');
     const fragment = getLineNumberFragment('L', selection);
     return `https://github.com/${trimmedPath}/blob/${commitHash}/${selection.filePath}${fragment}`;
+}
+
+function gitlabUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Selection): string {
+    const trimmedPath = url.pathname.replace(/.git$/, '').replace(/^\//, '');
+    const fragment = getLineNumberFragment('L', selection);
+    return `https://gitlab.com/${trimmedPath}/-/blob/${commitHash}/${selection.filePath}${fragment}`;
 }
 
 function getLineNumberFragment(prefix: string, selection: Selection): string {
