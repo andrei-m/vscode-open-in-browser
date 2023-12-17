@@ -1,42 +1,26 @@
 import * as vscode from 'vscode';
 import { Selection } from './editor';
-import { GitInfo } from './git';
-import  GitUrlParse from 'git-url-parse';
+import { GitInfo, MaybeUrlPlatform, UrlParsed, UrlPlatform } from './git';
 
 export function open(gitInfo: GitInfo, selection: Selection ) {
-    const parsed = GitUrlParse(gitInfo.originUri);
-    const url = gitUrlToWebUrl(parsed, gitInfo.commitHash, selection);
-    vscode.env.openExternal(vscode.Uri.parse(url));
-}
-
-export class UrlParsed {
-    resource: string
-    pathname: string
-    constructor(resource: string, pathname: string) {
-        this.resource = resource;
-        this.pathname = pathname;
+    const url = gitUrlToWebUrl(gitInfo.url, gitInfo.urlPlatform, gitInfo.commitHash, selection);
+    if (url) {
+        vscode.env.openExternal(vscode.Uri.parse(url));
     }
 }
 
-export function gitUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Selection): string {
+export function gitUrlToWebUrl(url: UrlParsed, urlPlatform: MaybeUrlPlatform, commitHash: string, selection: Selection): string | null {
     const host = url.resource;
-    if (host === 'github.com') {
+    if (host === 'github.com' || urlPlatform === UrlPlatform.Github) {
         return githubUrlToWebUrl(url, commitHash, selection);
     }
-    if (host === 'gitlab.com') {
+    if (host === 'gitlab.com' || urlPlatform === UrlPlatform.Gitlab) {
         return gitlabUrlToWebUrl(url, commitHash, selection);
     }
-    const fragment = getLineNumberFragment('', selection);
-
-    const path = url.pathname;
-    const pathSplit = path.split('/');
-    if (pathSplit.length === 2) {
-        const project = pathSplit[0];
-        const repo = pathSplit[1];
-        return `https://${host}/projects/${project}/repos/${repo}/browse/${selection.filePath}?at=${commitHash}${fragment}`
+    if (urlPlatform === UrlPlatform.Stash) {
+        return stashUrlToWebUrl(url, commitHash, selection);
     }
-
-    return `https://${host}/${path}/${selection.filePath}?at=${commitHash}${fragment}`
+    return null;
 }
 
 function githubUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Selection): string {
@@ -49,6 +33,21 @@ function gitlabUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Select
     const trimmedPath = url.pathname.replace(/.git$/, '').replace(/^\//, '');
     const fragment = getLineNumberFragment('L', selection);
     return `https://gitlab.com/${trimmedPath}/-/blob/${commitHash}/${selection.filePath}${fragment}`;
+}
+
+function stashUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Selection): string {
+    const host = url.resource;
+    const trimmedPath = url.pathname.replace(/.git$/, '').replace(/^\//, '');
+    const fragment = getLineNumberFragment('', selection);
+
+    const pathSplit = trimmedPath.split('/');
+    if (pathSplit.length === 2) {
+        const project = pathSplit[0];
+        const repo = pathSplit[1];
+        return `https://${host}/projects/${project}/repos/${repo}/browse/${selection.filePath}?at=${commitHash}${fragment}`
+    }
+
+    return `https://${host}/${trimmedPath}/${selection.filePath}?at=${commitHash}${fragment}`
 }
 
 function getLineNumberFragment(prefix: string, selection: Selection): string {

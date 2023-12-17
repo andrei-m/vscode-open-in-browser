@@ -1,16 +1,28 @@
 import * as vscode from 'vscode';
 import { simpleGit, SimpleGit, CleanOptions } from 'simple-git';
+import GitUrlParse from 'git-url-parse';
 
 export class GitInfo {
-    originUri: string
+    url: UrlParsed
     commitHash: string
-    constructor(originUri: string, commitHash: string) {
-        this.originUri = originUri;
+    urlPlatform: MaybeUrlPlatform
+    constructor(url: UrlParsed, commitHash: string, urlPlatform: MaybeUrlPlatform) {
+        this.url = url;
         this.commitHash = commitHash;
+        this.urlPlatform = urlPlatform;
     }
 }
 
 export type MaybeGitInfo = GitInfo | null;
+
+export class UrlParsed {
+    resource: string
+    pathname: string
+    constructor(resource: string, pathname: string) {
+        this.resource = resource;
+        this.pathname = pathname;
+    }
+}
 
 export async function getGitInfo(): Promise<MaybeGitInfo> {
     const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -26,6 +38,35 @@ export async function getGitInfo(): Promise<MaybeGitInfo> {
     }
     const remoteUrl = remotes[0].refs.fetch;
     const commitHash = await git.revparse(['HEAD']);
+    const urlPlatform = await getUrlPlatform(git, remotes[0].name)
+    const parsed = GitUrlParse(remoteUrl);
 
-    return new GitInfo(remoteUrl, commitHash);
+    return new GitInfo(parsed, commitHash, urlPlatform);
+}
+
+export enum UrlPlatform {
+    Github,
+    Gitlab,
+    Stash
+}
+
+export type MaybeUrlPlatform = UrlPlatform | null;
+
+async function getUrlPlatform(git: SimpleGit, remoteName: string): Promise<MaybeUrlPlatform> {
+    const urlPlatformKey = `remote.${remoteName}.url-platform`;
+    const urlPlatform = await git.getConfig(urlPlatformKey);
+    if (!urlPlatform.value) {
+        return null;
+    }
+
+    switch (urlPlatform.value.toLowerCase()) {
+        case 'github':
+            return UrlPlatform.Github;
+        case 'gitlab':
+            return UrlPlatform.Gitlab;
+        case 'stash':
+            return UrlPlatform.Stash;
+    }
+
+    return null;
 }
