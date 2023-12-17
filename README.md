@@ -2,6 +2,8 @@
 
 Open the current file the source control platform's web UI. This is useful for sharing perma-links with collaborators.
 
+See [Installation Instructions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#packaging-extensions).
+
 ## Features
 
 This extension adds 'Open in Web SCM' to the Command Palette. Running this command opens the default web browser to the currently edited file's URL in the SCM's web platform (e.g. Github). The URL represents the current position of the cursor or the current multi-line selection.
@@ -18,6 +20,10 @@ For example if there is an image subfolder under your extension project workspac
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
+
+## Requirements
+
+VSCode 1.85.0 or newer
 
 ## Release Notes
 

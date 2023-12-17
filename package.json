@@ -2,9 +2,13 @@
   "name": "open-in-web-scm",
   "displayName": "Open in Web SCM",
   "description": "Create an SCM perma-link from the currently edited file.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:andrei-m/vscode-open-in-web-scm.git"
+  },
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.81.1"
+    "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
@@ -25,7 +29,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/git-url-parse": "^9.0.3",

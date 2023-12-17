@@ -1,3 +1,4 @@
 node_modules
 out
 .vscode-test/*
+open-in-web-scm-*.vsix
