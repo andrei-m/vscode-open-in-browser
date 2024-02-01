@@ -14,6 +14,13 @@ Github and Gitlab URLs are recognized automatically from the git remote URL's ho
 git config --add remote.origin.url-platform stash
 ```
 
+The following remote.config.url-platform options are supported:
+
+* ado
+* github
+* gitlab
+* stash
+
 For example if there is an image subfolder under your extension project workspace:
 
 \!\[feature X\]\(images/feature-x.png\)
@@ -31,7 +38,7 @@ VSCode 1.85.0 or newer
 
 Initial release:
 
-    * Github, Gitlab, and Stash support
+    * Github, Gitlab, Stash, and Azure DevOps support
 
 
 ## Development

@@ -47,7 +47,8 @@ export async function getGitInfo(): Promise<MaybeGitInfo> {
 export enum UrlPlatform {
     Github,
     Gitlab,
-    Stash
+    Stash,
+    AzureDevOps
 }
 
 export type MaybeUrlPlatform = UrlPlatform | null;
@@ -66,6 +67,8 @@ async function getUrlPlatform(git: SimpleGit, remoteName: string): Promise<Maybe
             return UrlPlatform.Gitlab;
         case 'stash':
             return UrlPlatform.Stash;
+        case 'ado':
+            return UrlPlatform.AzureDevOps;
     }
 
     return null;
