@@ -2,7 +2,7 @@
 
 Open the current file the source control platform's web UI. This is useful for sharing perma-links with collaborators.
 
-![example](https://raw.githubusercontent.com/andrei-m/vscode-open-in-browser/rename/docs/example.gif)
+![example](https://raw.githubusercontent.com/andrei-m/vscode-open-in-browser/main/docs/example.gif)
 
 See [Installation Instructions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#packaging-extensions).
 
