@@ -1,4 +1,4 @@
-# open-in-web-scm
+# open-in-browser
 
 Open the current file the source control platform's web UI. This is useful for sharing perma-links with collaborators.
 

@@ -4,7 +4,7 @@ import * as git from './git';
 import { open } from './open';
 
 export function activate(context: vscode.ExtensionContext) {
-	const disposable = vscode.commands.registerCommand('open-in-web-scm.openInWeb', () => {
+	const disposable = vscode.commands.registerCommand('open-in-browser.open', () => {
 		const editorInfo = editor.getEditorInfo();
 		if (editorInfo) {
 			git.getGitInfo().then(simpleGitInfo => {

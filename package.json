@@ -1,10 +1,10 @@
 {
-  "name": "open-in-web-scm",
-  "displayName": "Open in Web SCM",
-  "description": "Create an SCM perma-link from the currently edited file.",
+  "name": "open-in-browser",
+  "displayName": "Open in Browser",
+  "description": "Create a web permalink from the currently edited file.",
   "repository": {
     "type": "git",
-    "url": "git@github.com:andrei-m/vscode-open-in-web-scm.git"
+    "url": "git@github.com:andrei-m/vscode-open-in-browser.git"
   },
   "version": "0.0.1",
   "engines": {
@@ -18,8 +18,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "open-in-web-scm.openInWeb",
-        "title": "Open in Web SCM"
+        "command": "open-in-browser.open",
+        "title": "Open in Browser"
       }
     ]
   },
