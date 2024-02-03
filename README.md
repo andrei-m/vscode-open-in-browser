@@ -8,9 +8,9 @@ See [Installation Instructions](https://code.visualstudio.com/api/working-with-e
 
 ## Features
 
-This extension adds 'Open in Web SCM' to the Command Palette. Running this command opens the default web browser to the currently edited file's URL in the SCM's web platform (e.g. Github). The URL represents the current position of the cursor or the current multi-line selection.
+This extension adds 'Open in Browser' to the Command Palette. Running this command opens the default web browser to the currently edited file's URL in the web platform related to the Git origin (e.g. Github). The URL represents the current position of the cursor or the current multi-line selection.
 
-Github and Gitlab URLs are recognized automatically from the git remote URL's host. Self-hosted web platforms such as Stash can be specified via the `remote.$remoteName.url-platform` git configuration setting in the edited file's repo, for example:
+Commonly used platforms such as Github and Gitlab are recognized automatically from the Git origin. Self-hosted web platforms such as Stash can be specified via the `remote.$remoteName.url-platform` git configuration setting in the edited file's repo, for example:
 
 ```
 git config --add remote.origin.url-platform stash
@@ -22,13 +22,6 @@ The following remote.config.url-platform options are supported:
 * github
 * gitlab
 * stash
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
 
 ## Requirements
 
