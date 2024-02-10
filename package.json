@@ -1,7 +1,9 @@
 {
-  "name": "open-in-browser",
-  "displayName": "Open in Browser",
+  "name": "git-open-in-browser",
+  "displayName": "Git Open in Browser",
   "description": "Create a web permalink from the currently edited file.",
+  "publisher": "open-in-browser",
+  "icon": "docs/icon.png",
   "repository": {
     "type": "git",
     "url": "git@github.com:andrei-m/vscode-open-in-browser.git"
@@ -11,7 +13,18 @@
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other"
+    "SCM Providers"
+  ],
+  "keywords": [
+    "browser",
+    "open",
+    "github",
+    "stash",
+    "bitbucket",
+    "ado",
+    "gitlab",
+    "azure",
+    "devops"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
