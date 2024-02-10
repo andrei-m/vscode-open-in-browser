@@ -1,6 +1,6 @@
 {
-  "name": "open-in-browser",
-  "displayName": "Open in Browser",
+  "name": "git-open-in-browser",
+  "displayName": "Git Open in Browser",
   "description": "Create a web permalink from the currently edited file.",
   "publisher": "open-in-browser",
   "icon": "docs/icon.png",
