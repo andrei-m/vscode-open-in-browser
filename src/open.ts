@@ -1,29 +1,28 @@
 import * as vscode from 'vscode';
 import { Selection } from './editor';
-import { GitInfo, MaybeUrlPlatform, UrlParsed, UrlPlatform } from './git';
+import { GitInfo, UrlParsed, UrlPlatform } from './git';
+import { notify } from './log';
 
 export function open(gitInfo: GitInfo, selection: Selection ) {
     const url = gitUrlToWebUrl(gitInfo.url, gitInfo.urlPlatform, gitInfo.commitHash, selection);
     if (url) {
         vscode.env.openExternal(vscode.Uri.parse(url));
+    } else {
+        notify(`Unrecognized web platform for ${gitInfo.url.resource}`);
     }
 }
 
-export function gitUrlToWebUrl(url: UrlParsed, urlPlatform: MaybeUrlPlatform, commitHash: string, selection: Selection): string | null {
-    const host = url.resource;
-    if (host === 'github.com' || urlPlatform === UrlPlatform.Github) {
-        return githubUrlToWebUrl(url, commitHash, selection);
+export function gitUrlToWebUrl(url: UrlParsed, urlPlatform: UrlPlatform, commitHash: string, selection: Selection): string {
+    switch (urlPlatform) {
+        case UrlPlatform.Github:
+            return githubUrlToWebUrl(url, commitHash, selection);
+        case UrlPlatform.Gitlab:
+            return gitlabUrlToWebUrl(url, commitHash, selection);
+        case UrlPlatform.Stash:
+            return stashUrlToWebUrl(url, commitHash, selection);
+        case UrlPlatform.AzureDevOps:
+            return azureDevopsUrlToWebUrl(url, commitHash, selection);
     }
-    if (host === 'gitlab.com' || urlPlatform === UrlPlatform.Gitlab) {
-        return gitlabUrlToWebUrl(url, commitHash, selection);
-    }
-    if (urlPlatform === UrlPlatform.Stash) {
-        return stashUrlToWebUrl(url, commitHash, selection);
-    }
-    if (host.endsWith('azure.com') || urlPlatform === UrlPlatform.AzureDevOps) {
-        return azureDevopsUrlToWebUrl(url, commitHash, selection);
-    }
-    return null;
 }
 
 function githubUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Selection): string {

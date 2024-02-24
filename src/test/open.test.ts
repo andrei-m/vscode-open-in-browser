@@ -21,7 +21,7 @@ suite('gitUrlToWebUrl', () => {
     test('Gitlab single line', () => {
         const url = new UrlParsed('gitlab.com', '/andrei-m/vscode-open-in-browser.git');
         const selection = new Selection('src/open.ts', 1, 1);
-        const webUrl = gitUrlToWebUrl(url, UrlPlatform.Stash, 'deadbeef', selection);
+        const webUrl = gitUrlToWebUrl(url, UrlPlatform.Gitlab, 'deadbeef', selection);
 		assert.strictEqual('https://gitlab.com/andrei-m/vscode-open-in-browser/-/blob/deadbeef/src/open.ts#L1', webUrl);
 	});
 
