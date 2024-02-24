@@ -1,10 +1,8 @@
 # open-in-browser
 
-Open the current file the source control platform's web UI. This is useful for sharing perma-links with collaborators.
+Open the current file the source control platform's web UI. This is useful for sharing perma-links with collaborators. Install via the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=open-in-browser.git-open-in-browser) or see [Installation Instructions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#packaging-extensions).
 
 ![example](https://raw.githubusercontent.com/andrei-m/vscode-open-in-browser/main/docs/example.gif)
-
-See [Installation Instructions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#packaging-extensions).
 
 ## Features
 
