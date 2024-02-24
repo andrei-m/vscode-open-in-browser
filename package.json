@@ -34,7 +34,31 @@
         "command": "open-in-browser.open",
         "title": "Open in Browser"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Git Open in Browser",
+      "properties": {
+        "git-open-in-browser.default-url-platform": {
+          "type": "string",
+          "default": "unset",
+          "description": "Git web platform default to use for unrecognized remote URIs",
+          "enum": [
+            "unset",
+            "ado",
+            "github",
+            "gitlab",
+            "stash"
+          ],
+          "enumDescriptions": [
+            "Unset; unrecognized URLs will not open",
+            "Azure DevOps",
+            "Github",
+            "Gitlab",
+            "Atlassian Stash"
+          ]
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
