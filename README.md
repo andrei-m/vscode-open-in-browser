@@ -27,12 +27,13 @@ VSCode 1.85.0 or newer
 
 ## Release Notes
 
-### 0.0.1
+### 0.0.1 (Latest)
 
 Initial release:
 
     * Github, Gitlab, Stash, and Azure DevOps support
 
+See [CHANGELOG.md](CHANGELOG.md) for release history and work-in-progress.
 
 ## Development
 
