@@ -44,7 +44,7 @@ VSCode 1.85.0 or newer
 
 - Web platform resolution based on the remote URL's domain is now case-insensitive.
 
-See [CHANGELOG.md](CHANGELOG.md) for release history and work-in-progress.
+See [CHANGELOG.md](https://raw.githubusercontent.com/andrei-m/vscode-open-in-browser/main/CHANGELOG.md) for release history and work-in-progress.
 
 ## Development
 
