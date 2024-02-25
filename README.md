@@ -21,17 +21,28 @@ The following remote.config.url-platform options are supported:
 * gitlab
 * stash
 
+An extension-wide setting can also be configured as a default for all repos. The priority order for remote web platform resolution is:
+
+1. The `remote.origin.url-platform` setting described above.
+2. Well-known domains guessed from the remote host (github.com, etc).
+3. The extension-wide setting.
+
 ## Requirements
 
 VSCode 1.85.0 or newer
 
 ## Release Notes
 
-### 0.0.1 (Latest)
+### 0.0.2 (Latest)
 
-Initial release:
+#### Added
 
-    * Github, Gitlab, Stash, and Azure DevOps support
+- An extension-wide setting for the web platform. This is a convenience to avoid configuring many per-repo settings for repos that would otherwise be unrecognized.
+- Notifications for common error modes such as editing files that are not managed in Git
+
+#### Changed
+
+- Web platform resolution based on the remote URL's domain is now case-insensitive.
 
 See [CHANGELOG.md](CHANGELOG.md) for release history and work-in-progress.
 
