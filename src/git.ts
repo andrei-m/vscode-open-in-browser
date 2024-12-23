@@ -18,9 +18,11 @@ export class GitInfo {
 export type MaybeGitInfo = GitInfo | null;
 
 export class UrlParsed {
+    protocol: string
     resource: string
     pathname: string
     constructor(resource: string, pathname: string) {
+        this.protocol = "ssh"
         this.resource = resource;
         this.pathname = pathname;
     }

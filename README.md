@@ -33,16 +33,11 @@ VSCode 1.85.0 or newer
 
 ## Release Notes
 
-### 0.0.2 (Latest)
-
-#### Added
-
-- An extension-wide setting for the web platform. This is a convenience to avoid configuring many per-repo settings for repos that would otherwise be unrecognized.
-- Notifications for common error modes such as editing files that are not managed in Git
+### [0.0.3] - 2024-12-23
 
 #### Changed
 
-- Web platform resolution based on the remote URL's domain is now case-insensitive.
+- Fixed Azure DevOps with HTTPS remotes to open on the `dev.azure.com` host. Previous `visualstudio.com` subdomains no longer work in my testing. SSH remotes need to be re-tested.
 
 See [CHANGELOG.md](https://raw.githubusercontent.com/andrei-m/vscode-open-in-browser/main/CHANGELOG.md) for release history and work-in-progress.
 
