@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import { gitUrlToWebUrl } from '../open';
 import { UrlParsed, UrlPlatform }  from '../git';
 import { Selection } from '../editor';
+import GitUrlParse from 'git-url-parse';
 
 suite('gitUrlToWebUrl', () => {
 	test('Github single line', () => {
@@ -46,11 +47,18 @@ suite('gitUrlToWebUrl', () => {
 		assert.strictEqual(webUrl, 'https://stash.example.org/projects/project/repos/repo/browse/src/open.ts?at=deadbeef#3-5');
 	});
 
-    test('Azure DevOps single line', () => {
+    test('Azure DevOps SSH single line', () => {
         const url = new UrlParsed('ssh.dev.azure.com', '/v3/sub/org/repo.git');
         const selection = new Selection('src/open.ts', 1, 1);
         const webUrl = gitUrlToWebUrl(url, UrlPlatform.AzureDevOps, 'deadbeef', selection);
 		assert.strictEqual(webUrl, 'https://sub.visualstudio.com/org/_git/repo?path=/src/open.ts&version=GCdeadbeef&line=1&lineEnd=2&lineStartColumn=1&_a=contents');
+	});
+
+    test('Azure DevOps HTTPS single line', () => {
+        const url = GitUrlParse('https://user@dev.azure.com/some/org_name/_git/repo');
+        const selection = new Selection('src/open.ts', 1, 1);
+        const webUrl = gitUrlToWebUrl(url, UrlPlatform.AzureDevOps, 'deadbeef', selection);
+		assert.strictEqual(webUrl, 'https://dev.azure.com/some/org_name/_git/repo?path=/src/open.ts&version=GCdeadbeef&line=1&lineEnd=2&lineStartColumn=1&_a=contents');
 	});
 
     test('Azure DevOps path structure has fewer than 4 elements', () => {

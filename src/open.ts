@@ -53,9 +53,14 @@ function stashUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Selecti
 }
 
 function azureDevopsUrlToWebUrl(url: UrlParsed, commitHash: string, selection: Selection): string {
-    const adoRepo = parseAzureDevOpsRepo(url.pathname);
     // ADO's last line semantics are more like "next line" after the last line
     const lastLine = selection.lastLine + 1;
+    if (url.protocol === "https") {
+        const adoRepo = parseAzureDevOpsHTTPSRepo(url.pathname);
+        return `https://dev.azure.com/${adoRepo.organization}/_git/${adoRepo.repo}?path=/${selection.filePath}&version=GC${commitHash}&line=${selection.firstLine}&lineEnd=${lastLine}&lineStartColumn=1&_a=contents`
+    }
+    //TODO: Retest with an SSH-based repo. The path structure below now 404s for HTTPS remotes, at least.
+    const adoRepo = parseAzureDevOpsSSHRepo(url.pathname);
     return `https://${adoRepo.subdomain}.visualstudio.com/${adoRepo.organization}/_git/${adoRepo.repo}?path=/${selection.filePath}&version=GC${commitHash}&line=${selection.firstLine}&lineEnd=${lastLine}&lineStartColumn=1&_a=contents`;
 }
 
@@ -77,11 +82,20 @@ class AzureDevOpsRepo {
     }
 }
 
-function parseAzureDevOpsRepo(pathname: string): AzureDevOpsRepo {
+function parseAzureDevOpsSSHRepo(pathname: string): AzureDevOpsRepo {
     const trimmedPath = pathname.replace(/.git$/, '').replace(/^\//, '');
     const pathSplit = trimmedPath.split("/");
     if (pathSplit.length != 4) {
         throw new Error(`expected 4 slash-separated parts in ${trimmedPath}`);
     }
     return new AzureDevOpsRepo(pathSplit[1], pathSplit[2], pathSplit[3]);
+}
+
+function parseAzureDevOpsHTTPSRepo(pathname: string): AzureDevOpsRepo {
+    const trimmedPath = pathname.replace(/^\//, '');
+    const pathSplit = trimmedPath.split("/");
+    if (pathSplit.length != 4) {
+        throw new Error(`expected 4 slash-separated parts in ${trimmedPath}`);
+    }
+    return new AzureDevOpsRepo('', `${pathSplit[0]}/${pathSplit[1]}`, pathSplit[3]);
 }
