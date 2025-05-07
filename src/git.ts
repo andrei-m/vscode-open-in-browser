@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { simpleGit, SimpleGit, CleanOptions } from 'simple-git';
+import { simpleGit, SimpleGit } from 'simple-git';
 import GitUrlParse from 'git-url-parse';
 import { log } from './log';
-import { getDefaultUrlPlatform }  from './config';
+import { getDefaultUrlPlatform } from './config';
 
 export class GitInfo {
     url: UrlParsed
@@ -35,7 +35,7 @@ export async function getGitInfo(): Promise<MaybeGitInfo> {
         return null;
     }
     const folderPath = workspaceFolders[0].uri.fsPath;
-    const git: SimpleGit = simpleGit(folderPath).clean(CleanOptions.FORCE);
+    const git: SimpleGit = simpleGit(folderPath);
 
     const remotes = await git.getRemotes(true);
     if (remotes.length < 1) {
