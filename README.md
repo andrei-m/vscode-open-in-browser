@@ -33,11 +33,12 @@ VSCode 1.85.0 or newer
 
 ## Release Notes
 
-### [0.0.3] - 2024-12-23
+### [0.0.4] - 2025-05-11
 
 #### Changed
 
-- Fixed Azure DevOps with HTTPS remotes to open on the `dev.azure.com` host. Previous `visualstudio.com` subdomains no longer work in my testing. SSH remotes need to be re-tested.
+- Fixed removal of untracked files when using the extension
+- Upgrade simple-git to 3.27.0
 
 See [CHANGELOG.md](https://raw.githubusercontent.com/andrei-m/vscode-open-in-browser/main/CHANGELOG.md) for release history and work-in-progress.
 
